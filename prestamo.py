@@ -80,4 +80,11 @@ CREATE TABLE IF NOT EXISTS prestamos (
 
         conn.commit()
         conn.close()
+
+    def eliminar_cliente (id_cliente):
+        conn = conectar()
+        cursor = conn.cursor()
+        cursor.execute('DELETE FROM clientes WHERE id = ?', (id_cliente))
+        conn.commit()
+        conn.close()    
         
