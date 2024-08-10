@@ -9,7 +9,7 @@ cursor.execute('''
 CREATE TABLE IF NOT EXISTS Clientes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre TEXT NOT NULL,
-    telefono TEXT.
+    telefono TEXT,
     direccion TEXT
 )
 ''')
@@ -20,12 +20,16 @@ CREATE TABLE IF NOT EXISTS prestamos (
     cliente_id INTEGER NOT null,
     monto REAL NOT NULL,
     interes REAL NOT NULL,
-    fecha_inicio text not null,
+    fecha_inicio text NOT null,
     fecha_vencimiento TEXT NOT NULL,
     estado TEXT NOT NULL DEFAULT 'pendiente',
-    FOREING KEY (cliente_id) REFERENCES Clientes(id)
+    FOREIGN KEY (cliente_id) REFERENCES Clientes(id)
 )
 ''')
+
+#Crear indice en cliente_id para mejorar el rendimiento
+
+cursor.execute('CREATE INDEX IF NOT EXISTS idx_cliente_id ON prestamos(cliente_id)')
 
 conn.commit()
 conn.close()
